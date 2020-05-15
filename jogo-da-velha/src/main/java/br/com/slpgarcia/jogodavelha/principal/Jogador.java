@@ -1,5 +1,6 @@
 package br.com.slpgarcia.jogodavelha.principal;
 
+import br.com.slpgarcia.jogodavelha.exceptions.MovimentacaoInvalidaException;
 import br.com.slpgarcia.jogodavelha.ui.UI;
 
 public class Jogador {
@@ -14,13 +15,13 @@ public class Jogador {
 		this.simbolo = simbolo;
 	}
 
-	private Movimentar movimentoEntrada() {
+	private Movimentar movimentoEntrada() throws MovimentacaoInvalidaException {
 		String movimentarStr = UI.entradaDados("Jogador '" + nome + "' =>");
 		return new Movimentar(movimentarStr);
 	
 	}
 	
-	public boolean jogar() {
+	public boolean jogar() throws MovimentacaoInvalidaException {
 	Movimentar movimentar = movimentoEntrada();
 	return tabuleiro.jogar(this, movimentar);
 		

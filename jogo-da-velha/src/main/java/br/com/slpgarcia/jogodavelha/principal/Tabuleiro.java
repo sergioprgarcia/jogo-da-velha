@@ -1,6 +1,7 @@
 package br.com.slpgarcia.jogodavelha.principal;
 
 import br.com.slpgarcia.jogodavelha.Constants;
+import br.com.slpgarcia.jogodavelha.exceptions.MovimentacaoInvalidaException;
 import br.com.slpgarcia.jogodavelha.ui.UI;
 
 public class Tabuleiro {
@@ -53,12 +54,18 @@ public class Tabuleiro {
 		return true;
 	}
 
-	public boolean jogar(Jogador jogador, Movimentar movimentar) {
+	public boolean jogar(Jogador jogador, Movimentar movimentar) throws MovimentacaoInvalidaException {
 		int i = movimentar.getI();
 		int j = movimentar.getJ();
 
-		//TODO valimentar os movimentos do jogador
+		if(i < 0 || j < 0 || i >= Constants.TAMANHO_TABULEIRO || j >= Constants.TAMANHO_TABULEIRO) {
+			throw new MovimentacaoInvalidaException("O intervalo da jogada é inválido!");
+		}
 
+		if(matriz[i][j] != ' ') {
+			throw new MovimentacaoInvalidaException("Esta jogada já foi realizada");
+		}
+		
 		matriz[i][j] = jogador.getSimbolo();
 		
 		
@@ -90,7 +97,7 @@ public class Tabuleiro {
 
 	private boolean checarColunas(Jogador jogador) {
 		for(int j = 0; j < Constants.TAMANHO_TABULEIRO; j++) {
-			if (checarLinha(j, jogador)) {
+			if (checarColuna(j, jogador)) {
 				return true;
 			}
 		}

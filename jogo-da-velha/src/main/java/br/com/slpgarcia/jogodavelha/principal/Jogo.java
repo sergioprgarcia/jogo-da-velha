@@ -1,6 +1,7 @@
 package br.com.slpgarcia.jogodavelha.principal;
 
 import br.com.slpgarcia.jogodavelha.Constants;
+import br.com.slpgarcia.jogodavelha.exceptions.MovimentacaoInvalidaException;
 import br.com.slpgarcia.jogodavelha.ui.UI;
 
 public class Jogo {
@@ -8,10 +9,10 @@ public class Jogo {
 	private Tabuleiro tabuleiro = new Tabuleiro();
 	private Jogador[] jogadores = new Jogador[Constants.SIMBOLO_JOGADORES.length];
 	private int indexJogadorAtual = -1;
-	
+
 
 	public void jogar() {
- 
+
 		UI.imprirTituloJogo();
 
 		for(int i = 0; i < jogadores.length; i++) {
@@ -24,26 +25,31 @@ public class Jogo {
 
 		while(!jogoTerminou) {
 			tabuleiro.imprimir();
+			boolean achouSequencia;
 
-			boolean achouSequencia = jogadorAtual.jogar();
-
+			try {
+				achouSequencia = jogadorAtual.jogar();
+			} catch (MovimentacaoInvalidaException e) {
+				UI.imprimirTexto("ERRO: " + e.getMessage());
+				continue;
+			}
 			if(achouSequencia) {
 				jogoTerminou = true;
 				vencedor = jogadorAtual;
-				
+
 			} else if (tabuleiro.estaCheio()) {
 				jogoTerminou = true;
 			}
-			
+
 			jogadorAtual = proximoJogador();
 		}	
-		
+
 		if(vencedor == null) {
 			UI.imprimirTexto("O jogo termionu empatado");
 		} else {
 			UI.imprimirTexto("O jogador '" + vencedor.getNome() + "' venceu o jogo!");
 		}
-		
+
 		tabuleiro.imprimir();
 		UI.imprimirTexto("Fim do jogo!");
 	}
@@ -56,19 +62,19 @@ public class Jogo {
 		UI.imprimirTexto("O jogador '" + nome + "' vai usar o símbolo '" + simbolo + "'");
 		return jogador;
 	}
-	
+
 	private Jogador proximoJogador() {
-	/*	indexJogadorAtual++;
-		
+		/*	indexJogadorAtual++;
+
 		if(indexJogadorAtual >= jogadores.length) {
 			indexJogadorAtual = 0;
 		}
 		return jogadores[indexJogadorAtual];
 	}
-	*/
+		 */
 		indexJogadorAtual = (indexJogadorAtual + 1) % jogadores.length;
 		return jogadores[indexJogadorAtual];
-		
+
 	}
 
 }
