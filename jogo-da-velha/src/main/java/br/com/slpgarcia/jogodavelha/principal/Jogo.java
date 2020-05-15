@@ -9,7 +9,7 @@ public class Jogo {
 	private Jogador[] jogadores = new Jogador[Constants.SIMBOLO_JOGADORES.length];
 
 	public void jogar() {
-
+ 
 		UI.imprirTituloJogo();
 
 		for(int i = 0; i < jogadores.length; i++) {
