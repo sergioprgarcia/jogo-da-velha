@@ -20,9 +20,9 @@ public class Jogador {
 	
 	}
 	
-	public void jogar() {
+	public boolean jogar() {
 	Movimentar movimentar = movimentoEntrada();
-	tabuleiro.jogar(this, movimentar);
+	return tabuleiro.jogar(this, movimentar);
 		
 	}
 

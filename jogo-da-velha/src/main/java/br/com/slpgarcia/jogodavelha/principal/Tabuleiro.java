@@ -29,14 +29,14 @@ public class Tabuleiro {
 				UI.imprimirTextoSemNovaLinha(String.valueOf(matriz[i][j]));
 
 				if(j < matriz[i].length - 1 ){
-					UI.imprimirTextoSemNovaLinha("  |");
+					UI.imprimirTextoSemNovaLinha("  |  ");
 				}
 			}
 
 			UI.imprimirNovaLinha();
 
 			if( i < matriz[i].length -1 ) {
-				UI.imprimirTexto("-----------");
+				UI.imprimirTexto("--------------");
 			}
 		}
 	}		

@@ -7,6 +7,8 @@ public class Jogo {
 
 	private Tabuleiro tabuleiro = new Tabuleiro();
 	private Jogador[] jogadores = new Jogador[Constants.SIMBOLO_JOGADORES.length];
+	private int indexJogadorAtual = -1;
+	
 
 	public void jogar() {
  
@@ -16,6 +18,34 @@ public class Jogo {
 			jogadores[i] = criarJogador(i);
 		}
 
+		boolean jogoTerminou = false;
+		Jogador jogadorAtual = proximoJogador();
+		Jogador vencedor = null;
+
+		while(!jogoTerminou) {
+			tabuleiro.imprimir();
+
+			boolean achouSequencia = jogadorAtual.jogar();
+
+			if(achouSequencia) {
+				jogoTerminou = true;
+				vencedor = jogadorAtual;
+				
+			} else if (tabuleiro.estaCheio()) {
+				jogoTerminou = true;
+			}
+			
+			jogadorAtual = proximoJogador();
+		}	
+		
+		if(vencedor == null) {
+			UI.imprimirTexto("O jogo termionu empatado");
+		} else {
+			UI.imprimirTexto("O jogador '" + vencedor.getNome() + "' venceu o jogo!");
+		}
+		
+		tabuleiro.imprimir();
+		UI.imprimirTexto("Fim do jogo!");
 	}
 
 	private Jogador criarJogador(int index) {
@@ -26,6 +56,19 @@ public class Jogo {
 		UI.imprimirTexto("O jogador '" + nome + "' vai usar o símbolo '" + simbolo + "'");
 		return jogador;
 	}
-
+	
+	private Jogador proximoJogador() {
+	/*	indexJogadorAtual++;
+		
+		if(indexJogadorAtual >= jogadores.length) {
+			indexJogadorAtual = 0;
+		}
+		return jogadores[indexJogadorAtual];
+	}
+	*/
+		indexJogadorAtual = (indexJogadorAtual + 1) % jogadores.length;
+		return jogadores[indexJogadorAtual];
+		
+	}
 
 }
