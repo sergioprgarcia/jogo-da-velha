@@ -3,6 +3,7 @@ package br.com.slpgarcia.jogodavelha.principal;
 import br.com.slpgarcia.jogodavelha.exceptions.MovimentacaoInvalidaException;
 import br.com.slpgarcia.jogodavelha.ui.UI;
 
+
 public class Jogador {
 	
 	private String nome;

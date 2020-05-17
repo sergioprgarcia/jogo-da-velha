@@ -1,5 +1,6 @@
 package br.com.slpgarcia.jogodavelha;
 
+
 public class Constants {
 	
 	public static final int TAMANHO_TABULEIRO = 3;
